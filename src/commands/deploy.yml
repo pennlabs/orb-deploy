@@ -1,0 +1,7 @@
+description: >
+  Deploy a helm chart
+
+steps:
+- run:
+    name: Deploy
+    command: /deploy.sh

@@ -1,0 +1,5 @@
+description: >
+  Docker image to deploy the helm chart
+
+docker:
+  - image: "pennlabs/deploy:9624ff8df7002235b2bab6b07132268fbe0fc714"

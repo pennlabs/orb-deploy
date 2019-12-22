@@ -1,0 +1,8 @@
+description: >
+  Deploy a helm chart
+
+executor: deploy
+
+steps:
+  - checkout
+  - deploy

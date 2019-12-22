@@ -1,0 +1,19 @@
+description: >
+  Deploy a helm chart. Deploy will only be done on the master and staging branches
+
+usage:
+  version: 2.1
+
+  orbs:
+    deploy: pennlabs/deploy@x.y.z
+
+  workflows:
+    build-and-deploy:
+      jobs:
+        - deploy/deploy:
+            context: k8s-deploy
+            filters:
+              branches:
+                only:
+                  - master
+                  - staging
