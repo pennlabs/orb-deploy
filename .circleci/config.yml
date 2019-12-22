@@ -20,7 +20,7 @@ workflows:
           requires:
             - orb-tools/pack
           context: orb-publish
-          orb-ref: pennlabs/orb-name@${CIRCLE_TAG}
+          orb-ref: pennlabs/deploy@${CIRCLE_TAG}
           attach-workspace: true
           checkout: false
           validate: false

@@ -1,5 +1,5 @@
 version: 2.1
 
 description: >
-  Example description.
+  Deploy a helm chart to Kubernetes.
   Built for internal use at Penn Labs.
