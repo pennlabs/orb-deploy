@@ -24,6 +24,10 @@ steps:
 
         set +e
 
+        ## Push new tag to repo
+
+        git remote rm origin
+        git remote add origin "https://pennappslabs:${CR_TOKEN}@github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git"
         git tag $CHART_VERSION
         git push origin $CHART_VERSION
 
