@@ -1,0 +1,8 @@
+description: >
+  Publish a helm chart
+
+executor: deploy
+
+steps:
+  - checkout
+  - publish-helm

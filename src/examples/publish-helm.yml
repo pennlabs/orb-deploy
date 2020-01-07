@@ -1,0 +1,18 @@
+description: >
+  Publish a helm chart. Publish will only be done on the master branch
+
+usage:
+  version: 2.1
+
+  orbs:
+    deploy: pennlabs/deploy@x.y.z
+
+  workflows:
+    build-and-deploy:
+      jobs:
+        - deploy/deploy:
+            context: helm-publish
+            filters:
+              branches:
+                only:
+                  - master
