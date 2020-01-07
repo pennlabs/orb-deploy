@@ -2,4 +2,4 @@ description: >
   Docker image to deploy the helm chart
 
 docker:
-  - image: "pennlabs/deploy:d5f27e641c3ca0f769c64683d58acd612020b148"
+  - image: "pennlabs/deploy:bac968bdf65e227285f564cc777bb3f3154e96ec"
