@@ -9,26 +9,26 @@ steps:
 
       git config --global user.email $GIT_USER_EMAIL
       git config --global user.name $GIT_USER
-  
+
       CHART_VERSION=$(yq r Chart.yaml version)
-  
+
       if [ "$CHART_VERSION" == "null" ]; then
           echo "Could not find chart version"
           exit 1
       fi
-  
+
       set +e # allow grep to fail
       git --no-pager tag | grep $CHART_VERSION
-  
+
       if [ $? == 0 ]; then
           echo "Chart with version ${CHART_VERSION} has already been published"
           exit 1
       fi
-  
+
       set +e
-  
+
       ## Push new tag to repo
-  
+
       git remote rm origin
       git remote add origin "https://${GIT_USER}:${CR_TOKEN}@github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git"
       git tag $CHART_VERSION

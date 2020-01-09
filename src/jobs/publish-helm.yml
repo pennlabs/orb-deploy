@@ -21,6 +21,6 @@ steps:
       condition: <<parameters.tag>>
       steps:
         - tag
-  - publish-helm
+  - publish-helm:
       chart-repo: <<parameters.chart-repo>>
       chart-org: <<parameters.chart-org>>

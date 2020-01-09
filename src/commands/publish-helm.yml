@@ -18,14 +18,14 @@ steps:
 
       git config --global user.email $GIT_USER_EMAIL
       git config --global user.name $GIT_USER
-  
+
       ## Package with helm and upload to the helm-charts releases
-  
+
       helm package . --destination .deploy
       cr upload -o $CHART_ORG -r $CHART_REPO -p .deploy
-  
+
       ## Publish to helm-charts by cloning down with personal access token
-  
+
       cd ..
       git clone https://github.com/$CHART_ORG/$CHART_REPO
       cd helm-charts
@@ -36,4 +36,3 @@ steps:
       git add index.yaml
       git commit -m "release new version [ci skip]"
       git push
-  
