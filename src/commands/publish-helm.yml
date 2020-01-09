@@ -11,28 +11,25 @@ parameters:
 
 steps:
   - run:
-    name: Publish
-    command: |
-      CHART_REPO="<<chart-repo>>"
-      CHART_ORG="<<chart-org>>"
+      name: Publish
+      command: |
+        CHART_REPO="<<chart-repo>>"
+        CHART_ORG="<<chart-org>>"
 
-      git config --global user.email $GIT_USER_EMAIL
-      git config --global user.name $GIT_USER
+        ## Package with helm and upload to the helm-charts releases
 
-      ## Package with helm and upload to the helm-charts releases
+        helm package . --destination .deploy
+        cr upload -o $CHART_ORG -r $CHART_REPO -p .deploy
 
-      helm package . --destination .deploy
-      cr upload -o $CHART_ORG -r $CHART_REPO -p .deploy
+        ## Publish to helm-charts by cloning down with personal access token
 
-      ## Publish to helm-charts by cloning down with personal access token
-
-      cd ..
-      git clone https://github.com/$CHART_ORG/$CHART_REPO
-      cd helm-charts
-      git remote rm origin
-      git remote add origin "https://${GIT_USER}:${CR_TOKEN}@github.com/${CHART_ORG}/${CHART_REPO}.git"
-      git checkout gh-pages
-      cr index -i index.yaml -p .deploy -o $CHART_ORG -r $CHART_REPO --charts-repo https://github.com/$CHART_ORG/$CHART_REPO
-      git add index.yaml
-      git commit -m "release new version [ci skip]"
-      git push
+        cd ..
+        git clone https://github.com/$CHART_ORG/$CHART_REPO charts
+        cd charts
+        git remote rm origin
+        git remote add origin "https://${GIT_USER}:${CR_TOKEN}@github.com/${CHART_ORG}/${CHART_REPO}.git"
+        git checkout gh-pages
+        cr index -i index.yaml -p .deploy -o $CHART_ORG -r $CHART_REPO --charts-repo https://github.com/$CHART_ORG/$CHART_REPO
+        git add index.yaml
+        git commit -m "release new version [ci skip]"
+        git push

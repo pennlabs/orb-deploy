@@ -17,6 +17,7 @@ parameters:
 
 steps:
   - checkout
+  - configure-git
   - when:
       condition: <<parameters.tag>>
       steps:
