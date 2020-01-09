@@ -13,8 +13,8 @@ steps:
   - run:
       name: Publish
       command: |
-        CHART_REPO="<<chart-repo>>"
-        CHART_ORG="<<chart-org>>"
+        CHART_REPO="<<parameters.chart-repo>>"
+        CHART_ORG="<<parameters.chart-org>>"
 
         ## Package with helm and upload to the helm-charts releases
 
