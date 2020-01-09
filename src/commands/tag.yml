@@ -21,7 +21,7 @@ parameters:
 
 steps:
   - run:
-      name: Publish
+      name: Tag
       command: |
         ## Get chart version and make sure it's an updated version
 

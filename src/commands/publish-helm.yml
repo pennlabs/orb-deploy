@@ -52,6 +52,7 @@ steps:
         cd charts
         git remote rm origin
         git remote add origin "https://${GIT_USER}:${GIT_TOKEN}@${GIT_HOST}/${CHART_ORG}/${CHART_REPO}.git"
+        git fetch
         git checkout gh-pages
         cr index -i index.yaml -p ../deploy -o $CHART_ORG -r $CHART_REPO --charts-repo https://$GIT_HOST/$CHART_ORG/$CHART_REPO
         git add index.yaml
