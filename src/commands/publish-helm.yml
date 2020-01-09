@@ -16,12 +16,12 @@ steps:
         CHART_REPO="<<parameters.chart-repo>>"
         CHART_ORG="<<parameters.chart-org>>"
 
-        ## Package with helm and upload to the helm-charts releases
+        ## Package with helm and create helm chart release
 
         helm package . --destination .deploy
         cr upload -o $CHART_ORG -r $CHART_REPO -p .deploy
 
-        ## Publish to helm-charts by cloning down with personal access token
+        ## Publish to helm chart repo by cloning down with personal access token
 
         cd ..
         git clone https://github.com/$CHART_ORG/$CHART_REPO charts
