@@ -3,6 +3,24 @@ description: >
 
 executor: deploy
 
+parameters:
+  chart-repo:
+    type: string
+    description: Repository for helm chart
+  chart-org:
+    type: string
+    description: Organization for helm chart repo
+  tag:
+    type: boolean
+    default: true
+    description: Whether or not to automatically tag chart releases
+
 steps:
   - checkout
+  - when:
+      condition: <<parameters.tag>>
+      steps:
+        - tag
   - publish-helm
+      chart-repo: <<parameters.chart-repo>>
+      chart-org: <<parameters.chart-org>>

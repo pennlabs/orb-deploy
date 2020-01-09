@@ -10,7 +10,9 @@ usage:
   workflows:
     build-and-deploy:
       jobs:
-        - deploy/deploy:
+        - deploy/helm-publish:
+            chart-org: pennlabs
+            chart-repo: helm-charts
             context: helm-publish
             filters:
               branches:
