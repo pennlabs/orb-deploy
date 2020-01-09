@@ -1,0 +1,5 @@
+description: >
+  Docker image containing various helm tools
+
+docker:
+  - image: "pennlabs/helm-tools:8710c5479aa60999649db490a4b8099512ea23e2"
