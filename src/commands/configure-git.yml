@@ -1,9 +1,22 @@
 description: >
   Set git up
 
+parameters:
+  git-username:
+    type: env_var_name
+    default: GIT_USER
+    description: >
+      Name of environment variable storing your git username
+
+  git-email:
+    type: env_var_name
+    default: GIT_USER_EMAIL
+    description: >
+      Name of environment variable storing your git email
+
 steps:
   - run:
       name: Configure Git
       command: |
-        git config --global user.email $GIT_USER_EMAIL
-        git config --global user.name $GIT_USER
+        git config --global user.email "$<<parameters.git-email>>"
+        git config --global user.name "$<<parameters.git-username>>"

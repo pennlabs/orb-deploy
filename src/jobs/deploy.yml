@@ -1,7 +1,7 @@
 description: >
   Deploy a helm chart
 
-executor: deploy
+executor: helm-tools
 
 steps:
   - checkout

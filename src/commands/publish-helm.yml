@@ -5,9 +5,27 @@ parameters:
   chart-repo:
     type: string
     description: Repository for helm chart
+
   chart-org:
     type: string
     description: Organization for helm chart repo
+
+  git-host:
+    type: string
+    default: github.com
+    description: Git host to use, defaults to github.com
+
+  git-username:
+    type: env_var_name
+    default: GIT_USER
+    description: >
+      Name of environment variable storing your git username
+
+  git-token:
+    type: env_var_name
+    default: GIT_TOKEN
+    description: >
+      Name of environment variable storing your git access token
 
 steps:
   - run:
@@ -19,17 +37,17 @@ steps:
         ## Package with helm and create helm chart release
 
         helm package . --destination .deploy
-        cr upload -o $CHART_ORG -r $CHART_REPO -p .deploy
+        cr upload -o $CHART_ORG -r $CHART_REPO -p .deploy --token <<parameters.git-token>>
 
         ## Publish to helm chart repo by cloning down with personal access token
 
         cd ..
-        git clone https://github.com/$CHART_ORG/$CHART_REPO charts
+        git clone https://<<parameters.git-host>>/$CHART_ORG/$CHART_REPO charts
         cd charts
         git remote rm origin
-        git remote add origin "https://${GIT_USER}:${CR_TOKEN}@github.com/${CHART_ORG}/${CHART_REPO}.git"
+        git remote add origin "https://$<<parameters.git-username>>:$<<parameters.git-token>>@<<parameters.git-host>>/${CHART_ORG}/${CHART_REPO}.git"
         git checkout gh-pages
-        cr index -i index.yaml -p .deploy -o $CHART_ORG -r $CHART_REPO --charts-repo https://github.com/$CHART_ORG/$CHART_REPO
+        cr index -i index.yaml -p .deploy -o $CHART_ORG -r $CHART_REPO  --token <<parameters.git-token>> --charts-repo https://<<parameters.git-host>>/$CHART_ORG/$CHART_REPO
         git add index.yaml
         git commit -m "release new version [ci skip]"
         git push

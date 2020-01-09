@@ -1,6 +1,24 @@
 description: >
   Tag a helm chart
 
+parameters:
+  git-host:
+    type: string
+    default: github.com
+    description: Git host to use, defaults to github.com
+
+  git-username:
+    type: env_var_name
+    default: GIT_USER
+    description: >
+      Name of environment variable storing your git username
+
+  git-token:
+    type: env_var_name
+    default: GIT_TOKEN
+    description: >
+      Name of environment variable storing your git access token
+
 steps:
   - run:
       name: Publish
@@ -27,6 +45,6 @@ steps:
         ## Push new tag to repo
 
         git remote rm origin
-        git remote add origin "https://${GIT_USER}:${CR_TOKEN}@github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git"
+        git remote add origin "https://$<<parameters.git-username>>:$<<parameters.git-token>>@<<parameters.git-host>>/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git"
         git tag -a $CHART_VERSION -m "release for ${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}"
         git push origin $CHART_VERSION

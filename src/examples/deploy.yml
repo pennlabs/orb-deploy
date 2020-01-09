@@ -5,12 +5,12 @@ usage:
   version: 2.1
 
   orbs:
-    deploy: pennlabs/deploy@x.y.z
+    helm-tools: pennlabs/helm-tools@x.y.z
 
   workflows:
     build-and-deploy:
       jobs:
-        - deploy/deploy:
+        - helm-tools/deploy:
             context: k8s-deploy
             filters:
               branches:

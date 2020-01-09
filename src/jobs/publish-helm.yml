@@ -1,27 +1,58 @@
 description: >
   Publish a helm chart
 
-executor: deploy
+executor: helm-tools
 
 parameters:
   chart-repo:
     type: string
     description: Repository for helm chart
+
   chart-org:
     type: string
     description: Organization for helm chart repo
+
   tag:
     type: boolean
     default: true
     description: Whether or not to automatically tag chart releases
 
+  git-host:
+    type: string
+    default: github.com
+    description: Git host to use, defaults to github.com
+
+  git-username:
+    type: env_var_name
+    default: GIT_USER
+    description: >
+      Name of environment variable storing your git username
+
+  git-email:
+    type: env_var_name
+    default: GIT_USER_EMAIL
+    description: >
+      Name of environment variable storing your git email
+
+  git-token:
+    type: env_var_name
+    default: GIT_TOKEN
+    description: >
+      Name of environment variable storing your git access token
+
 steps:
   - checkout
-  - configure-git
+  - configure-git:
+      git-username: <<parameters.git-username>>
+      git-email: <<parameters.git-email>>
   - when:
       condition: <<parameters.tag>>
       steps:
-        - tag
+        - tag:
+            git-username: <<parameters.git-username>>
+            git-token: <<parameters.git-token>>
   - publish-helm:
       chart-repo: <<parameters.chart-repo>>
       chart-org: <<parameters.chart-org>>
+      git-username: <<parameters.git-username>>
+      git-token: <<parameters.git-token>>
