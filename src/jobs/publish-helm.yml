@@ -51,8 +51,10 @@ steps:
         - tag:
             git-username: <<parameters.git-username>>
             git-token: <<parameters.git-token>>
+            git-host: <<parameters.git-host>>
   - publish-helm:
       chart-repo: <<parameters.chart-repo>>
       chart-org: <<parameters.chart-org>>
       git-username: <<parameters.git-username>>
       git-token: <<parameters.git-token>>
+      git-host: <<parameters.git-host>>
