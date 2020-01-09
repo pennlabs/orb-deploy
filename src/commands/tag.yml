@@ -28,5 +28,5 @@ steps:
 
         git remote rm origin
         git remote add origin "https://${GIT_USER}:${CR_TOKEN}@github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git"
-        git tag $CHART_VERSION
+        git tag -a $CHART_VERSION -m "release for ${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}"
         git push origin $CHART_VERSION
