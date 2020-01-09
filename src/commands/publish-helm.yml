@@ -31,6 +31,8 @@ steps:
   - run:
       name: Publish
       command: |
+        set -x
+
         CHART_REPO="<<parameters.chart-repo>>"
         CHART_ORG="<<parameters.chart-org>>"
         GIT_USERNAME="$<<parameters.git-username>>"
@@ -40,8 +42,8 @@ steps:
 
         ## Package with helm and create helm chart release
 
-        helm package . --destination .deploy
-        cr upload -o $CHART_ORG -r $CHART_REPO -p .deploy
+        helm package . --destination ../deploy
+        cr upload -o $CHART_ORG -r $CHART_REPO -p ../deploy
 
         ## Publish to helm chart repo by cloning down with personal access token
 
@@ -51,7 +53,7 @@ steps:
         git remote rm origin
         git remote add origin "https://${GIT_USER}:${GIT_TOKEN}@${GIT_HOST}/${CHART_ORG}/${CHART_REPO}.git"
         git checkout gh-pages
-        cr index -i index.yaml -p .deploy -o $CHART_ORG -r $CHART_REPO --charts-repo https://$GIT_HOST/$CHART_ORG/$CHART_REPO
+        cr index -i index.yaml -p ../deploy -o $CHART_ORG -r $CHART_REPO --charts-repo https://$GIT_HOST/$CHART_ORG/$CHART_REPO
         git add index.yaml
         git commit -m "release new version [ci skip]"
-        git push
+        git push --set-upstream origin gh-pages
