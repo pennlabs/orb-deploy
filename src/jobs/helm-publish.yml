@@ -22,6 +22,11 @@ parameters:
     default: true
     description: Whether or not to automatically tag chart releases
 
+  git-branch:
+    type: string
+    default: gh-pages
+    description: Git branch to push chart to, defaults to gh-pages
+
   git-host:
     type: string
     default: github.com
@@ -65,3 +70,4 @@ steps:
       git-username: <<parameters.git-username>>
       git-token: <<parameters.git-token>>
       git-host: <<parameters.git-host>>
+      git-branch: <<parameters.git-branch>>

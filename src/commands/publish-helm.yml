@@ -15,6 +15,11 @@ parameters:
     default: "."
     description: Path to helm chart
 
+  git-branch:
+    type: string
+    default: gh-pages
+    description: Git branch to push chart to, defaults to gh-pages
+
   git-host:
     type: string
     default: github.com
@@ -44,6 +49,7 @@ steps:
         GIT_USERNAME="$<<parameters.git-username>>"
         GIT_TOKEN="$<<parameters.git-token>>"
         GIT_HOST="<<parameters.git-host>>"
+        GIT_BRANCH="<<parameters.git-branch>>"
         export CR_TOKEN="$GIT_TOKEN"
 
         ## Package with helm and create helm chart release
@@ -59,7 +65,7 @@ steps:
         git remote rm origin
         git remote add origin "https://${GIT_USER}:${GIT_TOKEN}@${GIT_HOST}/${CHART_ORG}/${CHART_REPO}.git"
         git fetch
-        git checkout gh-pages
+        git checkout $GIT_BRANCH
         mkdir -p .deploy
         cp ../deploy/* .deploy
         cr index -i index.yaml -p .deploy -o $CHART_ORG -r $CHART_REPO --charts-repo https://$GIT_HOST/$CHART_ORG/$CHART_REPO
