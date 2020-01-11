@@ -12,6 +12,11 @@ parameters:
     type: string
     description: Organization for helm chart repo
 
+  chart-path:
+    type: string
+    default: "."
+    description: Path to helm chart
+
   tag:
     type: boolean
     default: true
@@ -49,12 +54,14 @@ steps:
       condition: <<parameters.tag>>
       steps:
         - tag:
+            chart-path: <<parameters.chart-path>>
             git-username: <<parameters.git-username>>
             git-token: <<parameters.git-token>>
             git-host: <<parameters.git-host>>
   - publish-helm:
       chart-repo: <<parameters.chart-repo>>
       chart-org: <<parameters.chart-org>>
+      chart-path: <<parameters.chart-path>>
       git-username: <<parameters.git-username>>
       git-token: <<parameters.git-token>>
       git-host: <<parameters.git-host>>

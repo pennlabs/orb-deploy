@@ -2,6 +2,11 @@ description: >
   Tag a helm chart
 
 parameters:
+  chart-path:
+    type: string
+    default: "."
+    description: Path to helm chart
+
   git-host:
     type: string
     default: github.com
@@ -23,9 +28,10 @@ steps:
   - run:
       name: Tag
       command: |
+        CHART_PATH="<<parameters.chart-path>>"
         ## Get chart version and make sure it's an updated version
 
-        CHART_VERSION=$(yq r Chart.yaml version)
+        CHART_VERSION=$(yq r $CHART_PATH/Chart.yaml version)
 
         if [ "$CHART_VERSION" == "null" ]; then
             echo "Could not find chart version"
