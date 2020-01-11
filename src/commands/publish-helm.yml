@@ -10,6 +10,11 @@ parameters:
     type: string
     description: Organization for helm chart repo
 
+  chart-path:
+    type: string
+    default: "."
+    description: Path to helm chart
+
   git-host:
     type: string
     default: github.com
@@ -35,6 +40,7 @@ steps:
 
         CHART_REPO="<<parameters.chart-repo>>"
         CHART_ORG="<<parameters.chart-org>>"
+        CHART_PATH="<<parameters.chart-path>>"
         GIT_USERNAME="$<<parameters.git-username>>"
         GIT_TOKEN="$<<parameters.git-token>>"
         GIT_HOST="<<parameters.git-host>>"
@@ -42,7 +48,7 @@ steps:
 
         ## Package with helm and create helm chart release
 
-        helm package . --destination ../deploy
+        helm package $CHART_PATH --destination ../deploy
         cr upload -o $CHART_ORG -r $CHART_REPO -p ../deploy
 
         ## Publish to helm chart repo by cloning down with personal access token
