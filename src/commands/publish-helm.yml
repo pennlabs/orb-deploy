@@ -72,4 +72,4 @@ steps:
         git add index.yaml
         git add .deploy
         git commit -m "Release new version"
-        git push --set-upstream origin gh-pages
+        git push origin $GIT_BRANCH
