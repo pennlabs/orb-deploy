@@ -1,5 +1,8 @@
 version: 2.1
 
+orbs:
+  slack: circleci/slack@3.4.2
+
 description: >
   Deploy a helm chart to Kubernetes.
   Built for internal use at Penn Labs.
