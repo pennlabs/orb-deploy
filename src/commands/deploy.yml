@@ -4,7 +4,8 @@ description: >
 parameters:
   deploy-tag:
     type: string
-    description: Image tag to use for deployments
+    default: "${CIRCLE_SHA1}"
+    description: Image tag to use for deployments. Defaults to ${CIRCLE_SHA1}
 
 steps:
 - run:
