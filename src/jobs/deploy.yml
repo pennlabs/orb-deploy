@@ -3,6 +3,13 @@ description: >
 
 executor: helm-tools
 
+parameters:
+  deploy-tag:
+    type: string
+    default: "${CIRCLE_SHA1}"
+    description: Image tag to use for deployments
+
 steps:
   - checkout
-  - deploy
+  - deploy:
+      deploy-tag: "<<parameters.deploy-tag>>"
