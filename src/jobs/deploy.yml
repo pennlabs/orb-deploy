@@ -21,9 +21,8 @@ steps:
   - when:
       condition: <<parameters.send-slack-alert>>
       steps:
-        - slack/status:
-            context: slack
-            success_message: "Deployment success!"
-            failure_message: "Deployment failure."
+        - slack/status: # Make sure SLACK_WEBHOOK is defined in the k8s-deploy context.
+            success_message: ":tada: SUCCESS :tada:"
+            failure_message: ":octagonal_sign: FAILURE :octagonal_sign:"
             include_project_field: true
             include_visit_job_action: true
