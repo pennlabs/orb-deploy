@@ -8,6 +8,11 @@ parameters:
     type: string
     default: "${CIRCLE_SHA1}"
     description: Image tag to use for deployments. Defaults to ${CIRCLE_SHA1}
+  send-slack-alert:
+    type: boolean
+    default: true
+    description: >
+      Whether or not to send slack alerts to the deployment channel
 
 steps:
   - checkout
