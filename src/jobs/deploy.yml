@@ -8,8 +8,19 @@ parameters:
     type: string
     default: "${CIRCLE_SHA1}"
     description: Image tag to use for deployments. Defaults to ${CIRCLE_SHA1}
+  send-slack-alert:
+    type: boolean
+    default: true
+    description: >
+      Whether or not to send slack alerts to the deployment channel
 
 steps:
   - checkout
   - deploy:
       deploy-tag: "<<parameters.deploy-tag>>"
+  - when:
+      condition: <<parameters.send-slack-alert>>
+      steps:
+        - slack/status: # Make sure SLACK_WEBHOOK is defined in the k8s-deploy context.
+            success_message: ":tada: SUCCESS :tada:"
+            failure_message: ":octagonal_sign: FAILURE :octagonal_sign:"
