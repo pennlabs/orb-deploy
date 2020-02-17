@@ -17,8 +17,8 @@ steps:
       condition: <<parameters.send-slack-alert>>
       steps:
         - slack/status:
-          context: slack
-          success_message: "Deployment success!"
-          failure_message: "Deployment failure."
-          include_project_field: true
-          include_visit_job_action: true
+            context: slack
+            success_message: "Deployment success!"
+            failure_message: "Deployment failure."
+            include_project_field: true
+            include_visit_job_action: true
