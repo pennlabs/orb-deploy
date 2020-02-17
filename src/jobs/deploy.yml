@@ -24,5 +24,3 @@ steps:
         - slack/status: # Make sure SLACK_WEBHOOK is defined in the k8s-deploy context.
             success_message: ":tada: SUCCESS :tada:"
             failure_message: ":octagonal_sign: FAILURE :octagonal_sign:"
-            include_project_field: true
-            include_visit_job_action: true
